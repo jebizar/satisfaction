@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        @font-face {
+            font-family: 'veneer';
+            src: url('veneer.ttf');
+        }
+
+        h1 {
+            font-size: 100px;
+            color: white;
+            font-family: veneer;
+        }
+
+        .jumbotron {
+            background-color: #d35b00;
+        }
+
+        .unhappy:active {
+            background-color: red;
+        }
+
+        .neutral:active {
+            background-color: yellow;
+        }
+
+        .happy:active {
+            background-color: green;
+        }
+
+        button {
+            background-color: white;
+            border: 0;
+            margin: auto;
+        }
+
+        button:active {
+            outline: none;
+            border: none;
+        }
+        body{
+            background: #d35b00;
+        }
+        .row{
+            background:white;
+            height: 22em;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div>
+        <div class="jumbotron jumbotron-fluid">
+            <h1 class="text-center">How are we feeling today?</h1>
+            <!-- <p>Cómo te sientes hoy</p> -->
+        </div>
+    </div>
+    <form name="submit-to-google-sheet">
+        <input name="survey" type="text" style="display:none">
+        <div class="row align-items-center">
+            <div class="col-4 text-center">
+                <button type="submit" value="unhappy" class="unhappy"><img src="unhappy.png"
+                        class="rounded mx-auto d-block"></button>
+            </div>
+            <div class="col-4 text-center">
+                <button type="submit" value="neutral" class="neutral"><img src="neutral.png"
+                        class="rounded mx-auto d-block"></button>
+            </div>
+            <div class="col-4 text-center">
+                <button type="submit" value="happy" class="happy"><img src="happy.png"
+                        class="rounded mx-auto d-block"></button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <footer>
+
+    </footer>
+
+    <script>
+        $("button").on('click', function () {
+            $("input").val($(this).val());
+        });
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxYijO47uboBPSjhrfN9EZPQajV4bupI2yXU7zn8hFPmEBZwLI/exec'
+        const form = document.forms['submit-to-google-sheet']
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => console.log('Success!', response))
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+</body>
+
+</html>
