@@ -11,10 +11,22 @@
             src: url('Veneer.ttf');
         }
 
+        *:focus {
+            outline: 1px solid transparent !important;
+        }
+
         h1 {
             font-size: 100px;
             color: white;
             font-family: veneer;
+        }
+
+        h2 {
+            font-size: 75px;
+            color: white;
+            font-family: veneer;
+            position: relative;
+            top: 100px;
         }
 
         .jumbotron {
@@ -22,21 +34,28 @@
         }
 
         .unhappy:active {
-            background-color: red;
+            background: url("UnhappyActive.png") no-repeat;
         }
 
         .neutral:active {
-            background-color: yellow;
+            background: url("NeutralActive.png") no-repeat;
         }
 
         .happy:active {
-            background-color: green;
+            background: url("HappyActive.png") no-repeat;
         }
 
+        img{ 
+            height: 240px;
+            width: 240px;
+        }
         button {
             background-color: white;
             border: 0;
             margin: auto;
+            height: 240px;
+            width: 240px;
+            padding:0;
         }
 
         button:active {
@@ -75,7 +94,7 @@
         <div class="row align-items-center">
             <div class="col-4 text-center">
                 <button type="submit" value="happy" class="happy"><img src="Happy.png"
-                        class="rounded mx-auto d-block"></button>
+                        class="rounded mx-auto d-block" id = "happy"></button>
             </div>
             <div class="col-4 text-center">
                 <button type="submit" value="neutral" class="neutral"><img src="Neutral.png"
@@ -89,13 +108,22 @@
     </form>
     </div>
     <footer>
-
+        <h2 class="text-center" style="display:none">Thank you, your input has been received!</h2>
     </footer>
 
     <script>
         $("button").on('click', function () {
             $("input").val($(this).val());
+            $("h2").show();
+            setTimeout(function () { $("h2").hide() }, 2500);
         });
+
+        // $("img").on("click",function(){
+        //     if($("#happy").attr("src","Happy.png")) {
+        //         $("#happy").attr("src","HappyActive.png");
+        //         setTimeout(function(){$("#happy").attr("src","Happy.png")},500);
+        //     }
+        // })
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxoplKQ9Njn6trRFi479RIPUIeaojU2X__u6tMY-4Q_tyvQCQOy/exec'
         const form = document.forms['submit-to-google-sheet']
