@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://joesgaragecoffee.com/content/themes/joesgaragecoffee/assets/img/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -69,6 +70,21 @@
             background:white;
             height: 22em;
         }
+         @media only screen and (max-width:1024px){
+            .jumbotron{ 
+                padding:0 !important;
+                margin:0 !important;
+            }
+
+            .row{
+                height:15em ;
+            }
+
+            h2{
+                top:50px;
+                font-size:65px;
+            }
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -83,6 +99,7 @@
 </head>
 
 <body>
+    <div data-toggle-fullscreen style="color:#d35b00">T</div>
     <div>
         <div class="jumbotron jumbotron-fluid">
             <h1 class="text-center">How's it Going?</h1>
@@ -133,7 +150,20 @@
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
                 .then(response => console.log('Success!', response))
                 .catch(error => console.error('Error!', error.message))
-        })
+        });
+        document.addEventListener('click', function (event) {
+
+
+        if (!event.target.hasAttribute('data-toggle-fullscreen')) return;
+
+
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            document.documentElement.requestFullscreen();
+        }
+
+        }, false);
     </script>
 </body>
 
